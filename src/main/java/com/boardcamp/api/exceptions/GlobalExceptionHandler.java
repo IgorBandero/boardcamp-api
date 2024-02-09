@@ -14,4 +14,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }    
 
+    // Customers
+    @ExceptionHandler({CustomerConflictException.class})
+    public ResponseEntity<String> handleCustomerConflict(CustomerConflictException exception){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+    }
+    
+
 }
