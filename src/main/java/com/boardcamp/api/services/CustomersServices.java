@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.boardcamp.api.dtos.CustomerDTO;
 import com.boardcamp.api.exceptions.CustomerConflictException;
+import com.boardcamp.api.exceptions.CustomerNotFoundException;
 import com.boardcamp.api.models.CustomerModel;
 import com.boardcamp.api.repositories.CustomersRepository;
 
@@ -20,5 +21,10 @@ public class CustomersServices {
         }
         CustomerModel customer = new CustomerModel(dto);
         return customersRepository.save(customer);
+    }
+
+    public CustomerModel findById(Long id){
+        return customersRepository.findById(id).orElseThrow(
+            () -> new CustomerNotFoundException("Customer not found!"));
     }
 }
