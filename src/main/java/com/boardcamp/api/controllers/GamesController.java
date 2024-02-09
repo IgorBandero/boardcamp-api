@@ -9,10 +9,14 @@ import com.boardcamp.api.services.GamesServices;
 
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @RestController
@@ -29,4 +33,11 @@ public class GamesController {
         GameModel game = gamesServices.save(body);
         return ResponseEntity.status(HttpStatus.CREATED).body(game);
     }
+
+    @GetMapping
+    public ResponseEntity<List<GameModel>> getGames() {
+        List<GameModel> games = gamesServices.getGames();
+        return ResponseEntity.status(HttpStatus.OK).body(games);
+    }
+    
 }

@@ -1,5 +1,7 @@
 package com.boardcamp.api.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.boardcamp.api.dtos.GameDTO;
@@ -20,8 +22,11 @@ public class GamesServices {
         if (gamesRepository.existsByName(dto.getName())){
             throw new GameConflictException("This game already exists!");
         }
-
         GameModel game = new GameModel(dto);
         return gamesRepository.save(game);
+    }
+
+    public List<GameModel> getGames(){
+        return gamesRepository.findAll();
     }
 }
