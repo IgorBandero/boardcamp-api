@@ -14,6 +14,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }    
 
+    @ExceptionHandler({GameNotFoundException.class})
+    public ResponseEntity<String> handleGameNotFound(GameNotFoundException exception){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+    @ExceptionHandler({GameOutOfStockException.class})
+    public ResponseEntity<String> handleGameOutOfStock(GameOutOfStockException exception){
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(exception.getMessage());
+    }
+    
+
     // Customers
     @ExceptionHandler({CustomerConflictException.class})
     public ResponseEntity<String> handleCustomerConflict(CustomerConflictException exception){
