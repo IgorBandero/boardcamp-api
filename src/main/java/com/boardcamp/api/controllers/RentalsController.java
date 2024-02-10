@@ -9,10 +9,14 @@ import com.boardcamp.api.services.RentalsServices;
 
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @RestController
@@ -29,5 +33,12 @@ public class RentalsController {
         RentalModel rent = rentalsServices.save(body);
         return ResponseEntity.status(HttpStatus.CREATED).body(rent);
     }
+
+    @GetMapping
+    public ResponseEntity<List<RentalModel>> getRentals() {
+        List<RentalModel> rentals = rentalsServices.getRentals();
+        return ResponseEntity.status(HttpStatus.OK).body(rentals);
+    }
+    
     
 }

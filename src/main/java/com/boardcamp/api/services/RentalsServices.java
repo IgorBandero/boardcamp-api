@@ -1,5 +1,7 @@
 package com.boardcamp.api.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.boardcamp.api.dtos.RentalDTO;
@@ -30,15 +32,16 @@ public class RentalsServices {
 
         GameModel game = gamesRepository.findById(dto.getGameId()).orElseThrow(
             () -> new GameNotFoundException("Game not found!"));
-
         CustomerModel customer = customersRepository.findById(dto.getCustomerId()).orElseThrow(
             () -> new CustomerNotFoundException("Customer not found!"));
-
         if (game.getStockTotal()==0){
             throw new GameOutOfStockException("Game out of stock!");
         }
-
         RentalModel rent = new RentalModel(dto, game, customer);
         return rentalsRepository.save(rent);
+    }
+
+    public List<RentalModel> getRentals(){
+        return rentalsRepository.findAll();
     }
 }
