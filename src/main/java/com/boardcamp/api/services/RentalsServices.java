@@ -41,6 +41,15 @@ public class RentalsServices {
         if (game.getStockTotal()==0){
             throw new GameOutOfStockException("Game out of stock!");
         }
+        
+        GameModel gameUpdate = new GameModel();
+        gameUpdate.setName(game.getName());
+        gameUpdate.setImage(game.getImage());
+        gameUpdate.setPricePerDay(game.getPricePerDay());
+        gameUpdate.setStockTotal(game.getStockTotal() - 1);
+        gameUpdate.setId(game.getId());
+        gamesRepository.save(gameUpdate);
+
         RentalModel rent = new RentalModel(dto, game, customer);
         return rentalsRepository.save(rent);
     }
@@ -65,8 +74,17 @@ public class RentalsServices {
             rent.setDelayFee(-1 * days * rent.getGame().getPricePerDay());
         }
 
-        RentalModel updatedRent = new RentalModel();
+        GameModel gameUpdate = new GameModel();
+        gameUpdate.setName(rent.getGame().getName());
+        gameUpdate.setImage(rent.getGame().getImage());
+        gameUpdate.setPricePerDay(rent.getGame().getPricePerDay());
+        gameUpdate.setStockTotal(rent.getGame().getStockTotal() + 1);
+        gameUpdate.setId(rent.getGame().getId());
+        gamesRepository.save(gameUpdate);
 
+        // Aumentar o estoque do GameID
+
+        RentalModel updatedRent = new RentalModel();
         updatedRent.setRentDate(rent.getRentDate());
         updatedRent.setDaysRented(rent.getDaysRented());
         updatedRent.setReturnDate(LocalDate.now());
