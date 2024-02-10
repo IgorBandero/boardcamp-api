@@ -16,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 
@@ -40,5 +43,10 @@ public class RentalsController {
         return ResponseEntity.status(HttpStatus.OK).body(rentals);
     }
     
+    @PutMapping("/{id}/return")
+    public ResponseEntity<RentalModel> finishRent(@PathVariable Long id) {
+        RentalModel rent = rentalsServices.finishRental(id);
+        return ResponseEntity.status(HttpStatus.OK).body(rent);     
+    }
     
 }

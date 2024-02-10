@@ -36,4 +36,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 
+    // Rentals
+    @ExceptionHandler({RentalNotFoundException.class})
+    public ResponseEntity<String> handleRentalNotFound(RentalNotFoundException exception){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+    @ExceptionHandler({CompletedRentalException.class})
+    public ResponseEntity<String> handleCompletedRental(CompletedRentalException exception){
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(exception.getMessage());
+    }
 }
